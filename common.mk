@@ -339,6 +339,10 @@ PRODUCT_PACKAGES += \
      vendor.samsung_ext.framework.battery-service \
      SmartCharge
 
+# CallVolume
+PRODUCT_PACKAGES += \
+     CallVolume
+
 # Shims
 PRODUCT_PACKAGES += \
     libshim_sensorndkbridge \
