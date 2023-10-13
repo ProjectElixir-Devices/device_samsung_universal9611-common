@@ -66,15 +66,16 @@ function blob_fixup() {
     	vendor/lib64/libnfc_nci_nxp.so)
 	    sed -i 's|/etc/libnfc-nci\.conf|/vendor/etc/nfc\.conf|g' "${2}"
 	    ;;
-        vendor/lib*/libcrypto-compat.so)
-            "${PATCHELF}" --set-soname libcrypto-compat.so "${2}"
-            ;;
+	vendor/lib*/libcrypto-compat.so)
+	    "${PATCHELF}" --set-soname libcrypto-compat.so "${2}"
+	    ;;
 	vendor/lib/audio.primary.exynos9611.so)
 	    "${PATCHELF}" --add-needed libshim_audioparams.so "${2}"
 	    sed -i 's|str_parms_get_str|str_parms_get_mod|g' "${2}"
 	    ;;
 	vendor/lib/libwvhidl.so)
 	    "${PATCHELF}" --replace-needed libcrypto.so libcrypto-v32.so "${2}"
+	    "${PATCHELF}" --replace-needed libprotobuf-cpp-lite-3.9.1.so libprotobuf-cpp-full-3.9.1.so "${2}"
 	    ;;
     esac
 }
