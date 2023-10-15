@@ -34,9 +34,9 @@ def IncrementalOTA_InstallEnd(info):
   OTA_InstallEnd(info)
   return
 
-def AddImage(info, dir, basename, dest):
+def AddImage(info, dir, basename, dest, zip=True):
   data = info.input_zip.read(dir + "/" + basename)
-  common.ZipWriteStr(info.output_zip, basename, data)
+  if zip: common.ZipWriteStr(info.output_zip, basename, data)
   info.script.Print("Patching {} image unconditionally...".format(dest.split('/')[-1]))
   info.script.AppendExtra('package_extract_file("%s", "%s");' % (basename, dest))
 
@@ -54,4 +54,5 @@ def OTA_Assertions(info):
 
 def OTA_InstallEnd(info):
   AddImage(info, "IMAGES", "dtbo.img", "/dev/block/by-name/dtbo")
+  AddImage(info, "IMAGES", "boot.img", "/dev/block/by-name/boot", zip=False)
   return
